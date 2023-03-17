@@ -137,6 +137,8 @@ class Dunnosql():
             columns_to_include: list/str (list of columns to update, might be string if only one)
 
             new_values: list/str (list of new values or string if only one - MUST BE SAME LEN AS COLUMNS ABOVE)
+
+            where: string (WHERE syntax, leave blank to ignore. Also doesn't matter if WHERE is included in syntax or not)
         """
 
         query = f"UPDATE {table} SET "
@@ -144,23 +146,32 @@ class Dunnosql():
         if 'where' in where.lower():
             where = where[5:]
         if isinstance(columns_to_include,str):
-            columns_to_include = list(columns_to_include)
+            columns_to_include = [columns_to_include]
         if isinstance(new_values,str):
-            new_values = list(new_values)
+            new_values = [new_values]
 
         for x in range(len(columns_to_include)):
-            query += f"{columns_to_include[x]}={new_values[x]}, "
+            query += f"{columns_to_include[x]}='{new_values[x]}', "
 
         query = query[:-2]
         if len(where)>0:
             query += f" WHERE {where}"
         query +=  ";"
+        print(query)
 
         self.cursor.execute(query)
         self.conn.commit()
     def delete(self, table, where=''):
-        pass
-dsql = Dunnosql('mariadb')
-dsql.connect('127.0.0.1','test_db','root','michalek40',log=True)
-dsql.insert('test_avtsys', ['t1', 'tp1', 'tw', 5])
-        
+        """Delete from table
+
+        Arguments
+        ---------
+            table: string (table to delete from)
+            
+            where: string (where syntax, doesn't matter if keyword WHERE is included)
+        """
+
+        if 'where' in where.lower():
+            where = where[5:]
+        self.cursor.execute(f"DELETE FROM {table} WHERE {where};")
+        self.conn.commit()
