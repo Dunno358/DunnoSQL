@@ -175,3 +175,14 @@ class Dunnosql():
             where = where[5:]
         self.cursor.execute(f"DELETE FROM {table} WHERE {where};")
         self.conn.commit()
+    def custom(self, query):
+        """ Type SQL query and execute. Simple as it is.
+        """
+
+        if query[0:5].lower() == 'SELECT':
+            self.cursor.execute(query)
+            data = self.cursor.fetchall()
+            return data
+        else:
+            self.cursor.execute(query)
+            self.conn.commit()
