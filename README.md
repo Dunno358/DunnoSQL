@@ -1,7 +1,7 @@
 # DunnoSQL
 Set of functions that makes using SQL actions with python easier and faster.
 
-## PyPI Installation
+## PyPI Installation (https://pypi.org/project/dunnosql)
 ```cmd
 pip install dunnosql
 ```
