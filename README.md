@@ -1,5 +1,5 @@
 # DunnoSQL
-Set of tools that makes using SQL actions with python easier and faster.
+Set of functions that makes using SQL actions with python easier and faster.
 
 ## PyPI Installation
 ```cmd
