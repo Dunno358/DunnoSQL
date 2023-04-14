@@ -179,7 +179,7 @@ class Dunnosql():
         """ Type SQL query and execute. Simple as it is.
         """
 
-        if query[0:5].lower() == 'SELECT':
+        if query[0:6].lower() == 'select':
             self.cursor.execute(query)
             data = self.cursor.fetchall()
             return data
